@@ -26,12 +26,12 @@ serverFiles:
             summary: "{{ $labels.kubernetes_node }} Host is low on memory. Only {{ $value }}% left."
             description: "{{ $labels.kubernetes_node }} node is low on memory. Only {{ $value }}% left."
         - alert: KubePersistentVolumeErrors
-          expr: #TODO
+          expr: kube_persistentvolume_status_phase{job="kubernetes-service-endpoints",phase=~"Failed|Pending"} > 0
           for: 2m
           labels:
             severity: critical
           annotations:
-            description: #TODO
+            description: The persistent volume {{ $labels.persistentvolume }} has status {{ $labels.phase }}.
             summary: PersistentVolume is having issues with provisioning.
         - alert: KubePodCrashLooping
           expr: #TODO
