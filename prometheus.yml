@@ -17,14 +17,14 @@ serverFiles:
       - name: low_memory_alert
         rules:
         - alert: LowMemory
-          expr: #TODO
+          expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 < 85
           for: 2m
           labels:
             severity: warning
           annotations:
-            host: #TODO
-            summary: #TODO
-            description: #TODO
+            host: "{{ $labels.kubernetes_node }}"
+            summary: "{{ $labels.kubernetes_node }} Host is low on memory. Only {{ $value }}% left."
+            description: "{{ $labels.kubernetes_node }} node is low on memory. Only {{ $value }}% left."
         - alert: KubePersistentVolumeErrors
           expr: #TODO
           for: 2m
