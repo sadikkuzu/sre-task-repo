@@ -6,14 +6,14 @@ serverFiles:
         rules:
         # Alert for any instance that is unreachable for >5 minutes.
         - alert: InstanceDown
-          expr: #TODO
+          expr: up{job="kubernetes-nodes"} == 0
           for: 2m
           labels:
             severity: page
           annotations:
-            host: #TODO
+            host: "{{ $labels.kubernetes_io_hostname }}"
             summary: "Instance down"
-            description: #TODO
+            description: "Node {{ $labels.kubernetes_io_hostname }} has been down for more than 5 minutes."
       - name: low_memory_alert
         rules:
         - alert: LowMemory
