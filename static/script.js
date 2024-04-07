@@ -11,7 +11,7 @@ function addToCart(productName) {
 function updateCart() {
   const cartList = document.getElementById("cart-items");
   const totalSpan = document.getElementById("cart-total");
-  
+
   cartList.innerHTML = "";
   cartItems.forEach(item => {
     const li = document.createElement("li");
@@ -46,7 +46,7 @@ function clearCart() {
     window.location.href = '/purchase';
 }
 
-  
+
 function clearCart() {
     cartItems = [];
     totalPrice = 0;
@@ -62,4 +62,3 @@ function continueShopping() {
     // Redirect to the /products route
     window.location.href = '/products';
 }
-
